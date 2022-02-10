@@ -1,7 +1,7 @@
 package models
 
 type Coffee struct {
-	Id          int     `json:"id"`
+	Id          string  `json:"id"`
 	Name        string  `json:"name"`
 	Img         string  `json:"img"`
 	Description string  `json:"description"`

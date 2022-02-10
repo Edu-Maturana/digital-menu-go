@@ -3,6 +3,8 @@ package services
 import (
 	"menu/database"
 	"menu/models"
+
+	"github.com/rs/xid"
 )
 
 func GetCoffees() []models.Coffee {
@@ -18,6 +20,8 @@ func GetCoffee(id int) models.Coffee {
 }
 
 func CreateCoffee(coffee models.Coffee) models.Coffee {
+	coffee.Id = xid.New().String()
+
 	database.Connect().Create(&coffee)
 	return coffee
 }

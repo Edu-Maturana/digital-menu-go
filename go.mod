@@ -15,6 +15,7 @@ require (
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.4 // indirect
 	github.com/joho/godotenv v1.4.0 // indirect
+	github.com/rs/xid v1.3.0 // indirect
 	golang.org/x/crypto v0.0.0-20220210151621-f4118a5b28e2 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	gorm.io/driver/postgres v1.2.3 // indirect
