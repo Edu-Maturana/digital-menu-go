@@ -1,11 +1,10 @@
 package models
 
-type User struct {
+type Employee struct {
 	Id       int    `json:"id"`
 	Name     string `json:"name"`
 	Password string `json:"password"`
 	Email    string `json:"email"`
-	IsAdmin  bool   `json:"isAdmin"`
 }
 
-type Users []User
+type Employees []Employee
