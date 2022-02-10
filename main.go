@@ -25,5 +25,5 @@ func main() {
 	router.HandleFunc("/employees/{id}", handlers.DeleteEmployee).Methods("DELETE")
 
 	fmt.Println("Server running...")
-	http.ListenAndServe(":3000", nil)
+	http.ListenAndServe(":3000", router)
 }
