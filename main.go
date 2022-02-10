@@ -14,7 +14,6 @@ func main() {
 
 	// Coffee endpoints
 	router.HandleFunc("/coffees", handlers.GetCoffees).Methods("GET")
-	router.HandleFunc("/coffees/{id}", handlers.GetCoffee).Methods("GET")
 	router.HandleFunc("/coffees", handlers.CreateCoffee).Methods("POST")
 	router.HandleFunc("/coffees/{id}", handlers.UpdateCoffee).Methods("PUT")
 	router.HandleFunc("/coffees/{id}", handlers.DeleteCoffee).Methods("DELETE")
