@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"strconv"
 
 	"github.com/gorilla/mux"
 
@@ -21,16 +20,16 @@ func CreateEmployee(res http.ResponseWriter, req *http.Request) {
 
 func UpdateEmployee(res http.ResponseWriter, req *http.Request) {
 	params := mux.Vars(req)
-	id, _ := strconv.Atoi(params["id"])
+	id, _ := params["id"]
 	var employee models.Employee
 	_ = json.NewDecoder(req.Body).Decode(&employee)
 	employee = services.UpdateEmployee(id, employee)
-	json.NewEncoder(res).Encode(employee)
+	fmt.Fprintf(res, "Employee with ID %v has been updated.", id)
 }
 
 func DeleteEmployee(res http.ResponseWriter, req *http.Request) {
 	params := mux.Vars(req)
-	id, _ := strconv.Atoi(params["id"])
+	id, _ := params["id"]
 	services.DeleteEmployee(id)
 	fmt.Fprintf(res, "Employee with ID %v has been deleted.", id)
 }

@@ -1,31 +1,27 @@
 package services
 
 import (
-	"menu/database"
 	"menu/models"
 
 	"github.com/rs/xid"
 	"golang.org/x/crypto/bcrypt"
 )
 
-func CreateEmployee(models.Employee) models.Employee {
-	employee := models.Employee{}
-
+func CreateEmployee(employee models.Employee) models.Employee {
 	employee.Id = xid.New().String()
-
-	// hash password
 	hashed, _ := bcrypt.GenerateFromPassword([]byte(employee.Password), 10)
 	employee.Password = string(hashed)
-
-	database.Connect().Create(&employee)
+	db.Create(&employee)
 	return employee
 }
 
-func UpdateEmployee(id int, employee models.Employee) models.Employee {
-	database.Connect().Model(&employee).Where("id = ?", id).Updates(employee)
+func UpdateEmployee(id string, employee models.Employee) models.Employee {
+	db.Model(&employee).Where("id = ?", id).Updates(employee)
 	return employee
 }
 
-func DeleteEmployee(id int) {
-	database.Connect().Delete(&models.Employee{}, id)
+func DeleteEmployee(id string) {
+	var employee models.Employee
+	db.First(&employee, "id = ?", id)
+	db.Delete(&employee)
 }
