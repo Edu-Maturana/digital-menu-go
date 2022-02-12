@@ -14,6 +14,7 @@ func main() {
 
 	// Coffee endpoints
 	router.HandleFunc("/coffees", handlers.GetCoffees).Methods("GET")
+	router.HandleFunc("/coffees/{id}", handlers.GetCoffee).Methods("GET")
 	router.HandleFunc("/coffees", handlers.CreateCoffee).Methods("POST")
 	router.HandleFunc("/coffees/{id}", handlers.UpdateCoffee).Methods("PUT")
 	router.HandleFunc("/coffees/{id}", handlers.DeleteCoffee).Methods("DELETE")
@@ -23,6 +24,6 @@ func main() {
 	router.HandleFunc("/employees/{id}", handlers.UpdateEmployee).Methods("PUT")
 	router.HandleFunc("/employees/{id}", handlers.DeleteEmployee).Methods("DELETE")
 
-	fmt.Println("Server running...")
+	fmt.Println("Server running!")
 	http.ListenAndServe(":3000", router)
 }

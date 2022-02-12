@@ -15,6 +15,12 @@ func GetCoffees() []models.Coffee {
 	return coffees
 }
 
+func GetCoffee(id string) models.Coffee {
+	var coffee models.Coffee
+	db.First(&coffee, "id = ?", id)
+	return coffee
+}
+
 func CreateCoffee(coffee models.Coffee) models.Coffee {
 	coffee.Id = xid.New().String()
 	db.Create(&coffee)
@@ -22,8 +28,7 @@ func CreateCoffee(coffee models.Coffee) models.Coffee {
 }
 
 func UpdateCoffee(id string, coffee models.Coffee) models.Coffee {
-	db.First(&coffee, id)
-	db.Model(&coffee).Updates(coffee)
+	db.Model(&coffee).Where("id = ?", id).Updates(coffee)
 	return coffee
 }
 
