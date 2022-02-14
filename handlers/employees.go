@@ -20,7 +20,7 @@ func CreateEmployee(res http.ResponseWriter, req *http.Request) {
 
 func UpdateEmployee(res http.ResponseWriter, req *http.Request) {
 	params := mux.Vars(req)
-	id, _ := params["id"]
+	id := params["id"]
 	var employee models.Employee
 	_ = json.NewDecoder(req.Body).Decode(&employee)
 	employee = services.UpdateEmployee(id, employee)
@@ -29,7 +29,7 @@ func UpdateEmployee(res http.ResponseWriter, req *http.Request) {
 
 func DeleteEmployee(res http.ResponseWriter, req *http.Request) {
 	params := mux.Vars(req)
-	id, _ := params["id"]
+	id := params["id"]
 	services.DeleteEmployee(id)
 	fmt.Fprintf(res, "Employee with ID %v has been deleted.", id)
 }
