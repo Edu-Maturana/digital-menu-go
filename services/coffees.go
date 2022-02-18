@@ -4,6 +4,7 @@ import (
 	"menu/database"
 	"menu/models"
 
+	"github.com/go-playground/validator/v10"
 	"github.com/rs/xid"
 )
 
@@ -21,10 +22,16 @@ func GetCoffee(id string) models.Coffee {
 	return coffee
 }
 
-func CreateCoffee(coffee models.Coffee) models.Coffee {
+func CreateCoffee(coffee models.Coffee) (models.Coffee, error) {
+	validate := validator.New()
+	err := validate.Struct(coffee)
+	if err != nil {
+		return coffee, err
+	}
+
 	coffee.Id = xid.New().String()
 	db.Create(&coffee)
-	return coffee
+	return coffee, nil
 }
 
 func UpdateCoffee(id string, coffee models.Coffee) models.Coffee {

@@ -26,8 +26,12 @@ func GetCoffee(res http.ResponseWriter, req *http.Request) {
 func CreateCoffee(res http.ResponseWriter, req *http.Request) {
 	var coffee models.Coffee
 	_ = json.NewDecoder(req.Body).Decode(&coffee)
-	coffee = services.CreateCoffee(coffee)
-	json.NewEncoder(res).Encode(coffee)
+	coffee, err := services.CreateCoffee(coffee)
+	if err != nil {
+		http.Error(res, err.Error(), http.StatusBadRequest)
+	} else {
+		json.NewEncoder(res).Encode(coffee)
+	}
 }
 
 func UpdateCoffee(res http.ResponseWriter, req *http.Request) {
