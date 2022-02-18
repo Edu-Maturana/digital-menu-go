@@ -16,13 +16,6 @@ func GetCoffees(res http.ResponseWriter, req *http.Request) {
 	json.NewEncoder(res).Encode(coffees)
 }
 
-func GetCoffee(res http.ResponseWriter, req *http.Request) {
-	params := mux.Vars(req)
-	id := params["id"]
-	coffee := services.GetCoffee(id)
-	json.NewEncoder(res).Encode(coffee)
-}
-
 func CreateCoffee(res http.ResponseWriter, req *http.Request) {
 	var coffee models.Coffee
 	_ = json.NewDecoder(req.Body).Decode(&coffee)

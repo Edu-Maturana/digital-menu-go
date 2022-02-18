@@ -16,12 +16,6 @@ func GetCoffees() []models.Coffee {
 	return coffees
 }
 
-func GetCoffee(id string) models.Coffee {
-	var coffee models.Coffee
-	db.First(&coffee, "id = ?", id)
-	return coffee
-}
-
 func CreateCoffee(coffee models.Coffee) (models.Coffee, error) {
 	validate := validator.New()
 	err := validate.Struct(coffee)
