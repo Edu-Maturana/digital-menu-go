@@ -16,18 +16,15 @@ func GetCoffees(res http.ResponseWriter, req *http.Request) {
 	json.NewEncoder(res).Encode(coffees)
 }
 
-func GetCoffee(res http.ResponseWriter, req *http.Request) {
-	params := mux.Vars(req)
-	id := params["id"]
-	coffee := services.GetCoffee(id)
-	json.NewEncoder(res).Encode(coffee)
-}
-
 func CreateCoffee(res http.ResponseWriter, req *http.Request) {
 	var coffee models.Coffee
 	_ = json.NewDecoder(req.Body).Decode(&coffee)
-	coffee = services.CreateCoffee(coffee)
-	json.NewEncoder(res).Encode(coffee)
+	coffee, err := services.CreateCoffee(coffee)
+	if err != nil {
+		http.Error(res, err.Error(), http.StatusBadRequest)
+	} else {
+		json.NewEncoder(res).Encode(coffee)
+	}
 }
 
 func UpdateCoffee(res http.ResponseWriter, req *http.Request) {
@@ -35,8 +32,12 @@ func UpdateCoffee(res http.ResponseWriter, req *http.Request) {
 	id := params["id"]
 	var coffee models.Coffee
 	_ = json.NewDecoder(req.Body).Decode(&coffee)
-	coffee = services.UpdateCoffee(id, coffee)
-	fmt.Fprintf(res, "Coffee with id %s updated", id)
+	coffee, err := services.UpdateCoffee(id, coffee)
+	if err != nil {
+		http.Error(res, err.Error(), http.StatusBadRequest)
+	} else {
+		fmt.Fprintf(res, "Coffee with id %s updated", id)
+	}
 }
 
 func DeleteCoffee(res http.ResponseWriter, req *http.Request) {
