@@ -32,8 +32,12 @@ func UpdateCoffee(res http.ResponseWriter, req *http.Request) {
 	id := params["id"]
 	var coffee models.Coffee
 	_ = json.NewDecoder(req.Body).Decode(&coffee)
-	coffee = services.UpdateCoffee(id, coffee)
-	fmt.Fprintf(res, "Coffee with id %s updated", id)
+	coffee, err := services.UpdateCoffee(id, coffee)
+	if err != nil {
+		http.Error(res, err.Error(), http.StatusBadRequest)
+	} else {
+		fmt.Fprintf(res, "Coffee with id %s updated", id)
+	}
 }
 
 func DeleteCoffee(res http.ResponseWriter, req *http.Request) {
