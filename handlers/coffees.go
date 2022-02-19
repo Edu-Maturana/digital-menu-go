@@ -12,6 +12,7 @@ import (
 )
 
 func GetCoffees(res http.ResponseWriter, req *http.Request) {
+	res.Header().Set("Content-Type", "application/json")
 	coffees := services.GetCoffees()
 	json.NewEncoder(res).Encode(coffees)
 }
